@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,36 +6,114 @@
 <title>KW SNIPER PRO X</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#080808;color:#fff;font-family:Arial,sans-serif}
-header{padding:22px;background:#111;border-bottom:1px solid #c99b36}
-h1{color:#d9ad48;margin:0}
-main{max-width:900px;margin:35px auto;padding:20px}
-.card{background:#151515;border:1px solid #9b792f;border-radius:12px;padding:22px;margin:18px 0}
-button{background:#d9ad48;color:#080808;border:0;padding:13px 20px;border-radius:7px;font-weight:bold}
-p{color:#ccc;line-height:1.6}
+body{margin:0;background:#080a0d;color:#fff;font-family:Arial,sans-serif}
+header{padding:22px 7%;background:#101318;border-bottom:1px solid #c9a13b;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.logo{color:#e6bd55;font-size:23px;font-weight:900}
+nav a{color:#ddd;text-decoration:none;margin:8px;font-size:14px}
+.hero{text-align:center;padding:75px 20px 55px;background:linear-gradient(135deg,#101318,#17130a)}
+.hero h1{font-size:38px;color:#e6bd55;margin-bottom:12px}
+.hero p{color:#bbb;line-height:1.7;max-width:650px;margin:15px auto}
+button{background:#d8ad48;color:#080808;border:0;padding:13px 20px;border-radius:6px;font-weight:bold;cursor:pointer;margin:5px}
+button:hover{background:#f2cf75}
+section{max-width:1050px;margin:35px auto;padding:20px}
+h2{text-align:center;color:#e6bd55}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:#14181e;border:1px solid #80672e;border-radius:12px;padding:24px;text-align:center}
+.card h3{color:#e6bd55}
+.card p{color:#bbb;line-height:1.6}
+.price{font-size:25px;color:#fff;font-weight:bold}
+.tag{color:#e6bd55;font-size:12px}
+.panel{background:#14181e;border:1px solid #80672e;border-radius:12px;padding:25px;margin:20px auto;max-width:650px}
+input,select{width:100%;padding:13px;margin:8px 0;background:#080a0d;border:1px solid #555;border-radius:6px;color:white}
+footer{text-align:center;padding:30px;color:#888;border-top:1px solid #80672e}
+.small{font-size:12px;color:#888}
 </style>
 </head>
 <body>
+
 <header>
-<h1>KW SNIPER PRO X</h1>
-<p>Professional Automated Trading Platform</p>
+<div class="logo">KW SNIPER PRO X</div>
+<nav>
+<a href="#home">Home</a>
+<a href="#plans">Plans</a>
+<a href="#login">Login</a>
+<a href="#license">License</a>
+</nav>
 </header>
-<main>
+
+<div class="hero" id="home">
+<div class="tag">NEXT GENERATION TRADING TECHNOLOGY</div>
+<h1>TRADE WITH PRECISION</h1>
+<p>Advanced automated trading technology for Forex and Gold. Smart market analysis, risk management and MT5 Expert Advisor licensing.</p>
+<button onclick="document.getElementById('plans').scrollIntoView({behavior:'smooth'})">Explore Plans</button>
+<button onclick="document.getElementById('login').scrollIntoView({behavior:'smooth'})">Customer Portal</button>
+</div>
+
+<section id="plans">
+<h2>SUBSCRIPTION PLANS</h2>
+<div class="cards">
 <div class="card">
-<h2>Welcome to KW SNIPER PRO X</h2>
-<p>Your advanced trading platform for forex and gold.</p>
-<button onclick="alert('Customer portal coming soon')">Customer Login</button>
+<h3>PREMIUM</h3>
+<p>Professional trading access</p>
+<div class="price">Contact us</div>
+<p>MT5 EA access<br>License management<br>Customer support</p>
+<button onclick="alert('Premium subscription portal coming soon')">Choose Premium</button>
 </div>
 <div class="card">
-<h2>Subscription Plans</h2>
-<p>Premium trading tools, EA licensing and account protection.</p>
-<button onclick="alert('Subscription portal coming soon')">View Plans</button>
+<h3>ELITE</h3>
+<p>Advanced trading access</p>
+<div class="price">Contact us</div>
+<p>Advanced tools<br>Market analysis<br>Priority support</p>
+<button onclick="alert('Elite subscription portal coming soon')">Choose Elite</button>
 </div>
 <div class="card">
-<h2>MT5 License</h2>
-<p>Activate and manage your Expert Advisor license.</p>
-<button onclick="alert('License activation coming soon')">Activate License</button>
+<h3>VIP</h3>
+<p>Exclusive premium access</p>
+<div class="price">KSh 25,000/year</div>
+<p>VIP access<br>Advanced features<br>Priority assistance</p>
+<button onclick="alert('VIP subscription portal coming soon')">Choose VIP</button>
 </div>
-</main>
+</div>
+</section>
+
+<section id="login">
+<h2>CUSTOMER LOGIN</h2>
+<div class="panel">
+<p>Access your KW SNIPER PRO X customer account.</p>
+<input type="email" placeholder="Email address">
+<input type="password" placeholder="Password">
+<button onclick="alert('Real customer login will be connected to Supabase')">Login</button>
+<button onclick="alert('Customer registration will be connected to Supabase')">Create Account</button>
+<p class="small">Secure account registration and authentication coming next.</p>
+</div>
+</section>
+
+<section id="license">
+<h2>MT5 LICENSE ACTIVATION</h2>
+<div class="panel">
+<p>Enter your EA license details.</p>
+<input type="text" placeholder="KW SNIPER PRO X License Key">
+<input type="text" placeholder="MT5 Account Number">
+<button onclick="alert('License verification will be connected to the secure server')">Verify License</button>
+<p class="small">Each license will be linked to its authorized MT5 account.</p>
+</div>
+</section>
+
+<section>
+<h2>PLATFORM FEATURES</h2>
+<div class="cards">
+<div class="card"><h3>SMC & CRT</h3><p>Smart money concepts and candle-range analysis.</p></div>
+<div class="card"><h3>Multi-Pair Scanning</h3><p>Designed for Forex and Gold market monitoring.</p></div>
+<div class="card"><h3>Risk Protection</h3><p>Planned risk controls and trade protection.</p></div>
+<div class="card"><h3>News Awareness</h3><p>News monitoring and trading alerts.</p></div>
+</div>
+</section>
+
+<footer>
+<strong>KW SNIPER PRO X</strong>
+<p>Professional Automated Trading Platform</p>
+<p class="small">Trading involves risk. No profits are guaranteed.</p>
+</footer>
+
 </body>
 </html>
