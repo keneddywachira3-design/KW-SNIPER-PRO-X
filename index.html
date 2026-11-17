@@ -15,6 +15,7 @@ nav a{color:#ddd;text-decoration:none;margin:8px;font-size:14px}
 .hero p{color:#bbb;line-height:1.7;max-width:650px;margin:15px auto}
 button{background:#d8ad48;color:#080808;border:0;padding:13px 20px;border-radius:6px;font-weight:bold;cursor:pointer;margin:5px}
 button:hover{background:#f2cf75}
+button:disabled{opacity:.5;cursor:not-allowed}
 section{max-width:1050px;margin:35px auto;padding:20px}
 h2{text-align:center;color:#e6bd55}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
@@ -27,6 +28,7 @@ h2{text-align:center;color:#e6bd55}
 input,select{width:100%;padding:13px;margin:8px 0;background:#080a0d;border:1px solid #555;border-radius:6px;color:white}
 footer{text-align:center;padding:30px;color:#888;border-top:1px solid #80672e}
 .small{font-size:12px;color:#888}
+#authMessage{margin-top:15px;line-height:1.6;overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -77,14 +79,17 @@ footer{text-align:center;padding:30px;color:#888;border-top:1px solid #80672e}
 </section>
 
 <section id="login">
-<h2>CUSTOMER LOGIN</h2>
+<h2>CUSTOMER ACCOUNT</h2>
 <div class="panel">
-<p>Access your KW SNIPER PRO X customer account.</p>
-<input type="email" placeholder="Email address">
-<input type="password" placeholder="Password">
-<button onclick="alert('Real customer login will be connected to Supabase')">Login</button>
-<button onclick="alert('Customer registration will be connected to Supabase')">Create Account</button>
-<p class="small">Secure account registration and authentication coming next.</p>
+<p>Create an account or log in to KW SNIPER PRO X.</p>
+
+<input id="customerEmail" type="email" placeholder="Email address" autocomplete="email">
+<input id="customerPassword" type="password" placeholder="Password (minimum 6 characters)" autocomplete="new-password">
+
+<button id="registerButton" onclick="createAccount()">Create Account</button>
+<button id="loginButton" onclick="loginCustomer()">Login</button>
+
+<p id="authMessage" class="small" aria-live="polite"></p>
 </div>
 </section>
 
@@ -94,7 +99,7 @@ footer{text-align:center;padding:30px;color:#888;border-top:1px solid #80672e}
 <p>Enter your EA license details.</p>
 <input type="text" placeholder="KW SNIPER PRO X License Key">
 <input type="text" placeholder="MT5 Account Number">
-<button onclick="alert('License verification will be connected to the secure server')">Verify License</button>
+<button onclick="alert('License verification will be connected to the secure server next')">Verify License</button>
 <p class="small">Each license will be linked to its authorized MT5 account.</p>
 </div>
 </section>
@@ -114,6 +119,94 @@ footer{text-align:center;padding:30px;color:#888;border-top:1px solid #80672e}
 <p>Professional Automated Trading Platform</p>
 <p class="small">Trading involves risk. No profits are guaranteed.</p>
 </footer>
+
+<!-- Supabase connection -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://ycxooavquvovjzrtxdjy.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_g9QsOnQnDf_Nn5f7DX7LGw_8gGO0n6M";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+function showAuthMessage(message, success) {
+  const output = document.getElementById("authMessage");
+  output.textContent = message;
+  output.style.color = success ? "#8ee6a1" : "#ff8585";
+}
+
+async function createAccount() {
+  const email = document.getElementById("customerEmail").value.trim();
+  const password = document.getElementById("customerPassword").value;
+
+  if (!email || !password) {
+    showAuthMessage("Please enter your email and password.", false);
+    return;
+  }
+
+  if (password.length < 6) {
+    showAuthMessage("Password must contain at least 6 characters.", false);
+    return;
+  }
+
+  const button = document.getElementById("registerButton");
+  button.disabled = true;
+  showAuthMessage("Creating your customer account...", true);
+
+  try {
+    const { data, error } = await supabaseClient.auth.signUp({
+      email: email,
+      password: password
+    });
+
+    if (error) throw error;
+
+    if (data.session) {
+      showAuthMessage("Account created successfully! You are now logged in.", true);
+    } else {
+      showAuthMessage("Account created! Please check your email to confirm your account before logging in.", true);
+    }
+  } catch (error) {
+    showAuthMessage(error.message || "Registration failed. Please try again.", false);
+  } finally {
+    button.disabled = false;
+  }
+}
+
+async function loginCustomer() {
+  const email = document.getElementById("customerEmail").value.trim();
+  const password = document.getElementById("customerPassword").value;
+
+  if (!email || !password) {
+    showAuthMessage("Please enter your email and password.", false);
+    return;
+  }
+
+  const button = document.getElementById("loginButton");
+  button.disabled = true;
+  showAuthMessage("Logging in...", true);
+
+  try {
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) throw error;
+
+    showAuthMessage("Welcome! You are successfully logged in as " + data.user.email, true);
+  } catch (error) {
+    showAuthMessage(error.message || "Login failed. Please try again.", false);
+  } finally {
+    button.disabled = false;
+  }
+}
+
+console.log("KW SNIPER PRO X Supabase initialized");
+</script>
 
 </body>
 </html>
